@@ -26,14 +26,6 @@ platforms:
     components:
       - editor
       - il2cpp
-#  - name: OSX_OpenGLCore
-#    os: macos
-#    type: Unity::VM::osx
-#    image: buildfarm/mac:stable
-#    flavor: m1.mac
-#    components:
-#      - editor
-#      - il2cpp
   - name: Linux
     os: linux
     type: Unity::VM::GPU
@@ -311,6 +303,7 @@ Build_{{ project.name }}_OSX_OpenGLCore_Player_{{ editor.version }}:
 
     {% if testplatform.name == "Standalone" %}
     - |
+      ssh -i ~/.ssh/id_rsa_macmini -o "StrictHostKeyChecking=no" bokken@$BOKKEN_DEVICE_IP 'cd ~/Graphics/TestProjects/{{ project.folder }} && /Users/bokken/.Editor/Unity.app/Contents/MacOS/Unity -batchmode -projectPath . -executeMethod SetupGraphicsTestCases.PreparePlayerTest'
       ssh -i ~/.ssh/id_rsa_macmini -o "StrictHostKeyChecking=no" bokken@$BOKKEN_DEVICE_IP 'cd ~/Graphics/TestProjects/{{ project.folder }} && ~/Graphics/TestProjects/{{ project.folder }}/utr/utr {{ testplatform.args }}OSX  --testproject=/Users/bokken/Graphics/TestProjects/{{ project.folder }} --editor-location=/Users/bokken/.Editor --artifacts_path=/Users/bokken/Graphics/TestProjects/{{ project.folder }}/test-results --timeout=1400'
     {% else %}
     - |
