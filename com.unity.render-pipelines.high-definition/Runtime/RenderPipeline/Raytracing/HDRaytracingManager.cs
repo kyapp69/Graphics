@@ -39,7 +39,8 @@ namespace UnityEngine.Rendering.HighDefinition
         RGBA0,
         RGBA1,
         RGBA2,
-        RGBA3
+        RGBA3,
+        RGBA4
     }
 
     class HDRayTracingLights
@@ -105,6 +106,7 @@ namespace UnityEngine.Rendering.HighDefinition
         RTHandle m_RayTracingIntermediateBufferRGBA1;
         RTHandle m_RayTracingIntermediateBufferRGBA2;
         RTHandle m_RayTracingIntermediateBufferRGBA3;
+        RTHandle m_RayTracingIntermediateBufferRGBA4;
 
         internal RTHandle GetRayTracingBuffer(InternalRayTracingBuffers bufferID)
         {
@@ -130,6 +132,8 @@ namespace UnityEngine.Rendering.HighDefinition
                     return m_RayTracingIntermediateBufferRGBA2;
                 case InternalRayTracingBuffers.RGBA3:
                     return m_RayTracingIntermediateBufferRGBA3;
+                case InternalRayTracingBuffers.RGBA4:
+                    return m_RayTracingIntermediateBufferRGBA4;
                 default:
                     return null;
             }
@@ -163,6 +167,7 @@ namespace UnityEngine.Rendering.HighDefinition
             m_RayTracingIntermediateBufferRGBA1 = RTHandles.Alloc(Vector2.one, TextureXR.slices, colorFormat: GraphicsFormat.R16G16B16A16_SFloat, dimension: TextureXR.dimension, enableRandomWrite: true, useDynamicScale: true, useMipMap: false, name: "RayTracingIntermediateBufferRGBA1");
             m_RayTracingIntermediateBufferRGBA2 = RTHandles.Alloc(Vector2.one, TextureXR.slices, colorFormat: GraphicsFormat.R16G16B16A16_SFloat, dimension: TextureXR.dimension, enableRandomWrite: true, useDynamicScale: true, useMipMap: false, name: "RayTracingIntermediateBufferRGBA2");
             m_RayTracingIntermediateBufferRGBA3 = RTHandles.Alloc(Vector2.one, TextureXR.slices, colorFormat: GraphicsFormat.R16G16B16A16_SFloat, dimension: TextureXR.dimension, enableRandomWrite: true, useDynamicScale: true, useMipMap: false, name: "RayTracingIntermediateBufferRGBA3");
+            m_RayTracingIntermediateBufferRGBA4 = RTHandles.Alloc(Vector2.one, TextureXR.slices, colorFormat: GraphicsFormat.R16G16B16A16_SFloat, dimension: TextureXR.dimension, enableRandomWrite: true, useDynamicScale: true, useMipMap: false, name: "RayTracingIntermediateBufferRGBA4");
         }
 
         internal void ReleaseRayTracingManager()
@@ -178,6 +183,7 @@ namespace UnityEngine.Rendering.HighDefinition
             RTHandles.Release(m_RayTracingIntermediateBufferRGBA1);
             RTHandles.Release(m_RayTracingIntermediateBufferRGBA2);
             RTHandles.Release(m_RayTracingIntermediateBufferRGBA3);
+            RTHandles.Release(m_RayTracingIntermediateBufferRGBA4);
 
             m_RayTracingLightCluster.ReleaseResources();
             m_ReflectionDenoiser.Release();
